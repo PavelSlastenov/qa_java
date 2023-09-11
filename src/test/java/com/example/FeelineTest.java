@@ -35,7 +35,6 @@ public class FeelineTest {
 
         String actualFamily = feline.getFamily();
 
-        // Проверяем, что возвращенное значение соответствует ожидаемому
         assertEquals("Кошачьи", actualFamily);
     }
 
@@ -45,7 +44,6 @@ public class FeelineTest {
 
         int actualKittens = feline.getKittens();
 
-        // Проверяем, что возвращенное значение соответствует ожидаемому
         assertEquals(1, actualKittens);
     }
 
@@ -56,7 +54,6 @@ public class FeelineTest {
 
         int actualKittens = feline.getKittens(kittensCount);
 
-        // Проверяем, что возвращенное значение соответствует ожидаемому
         assertEquals(kittensCount, actualKittens);
     }
 
