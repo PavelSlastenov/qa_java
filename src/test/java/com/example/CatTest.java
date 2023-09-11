@@ -18,18 +18,13 @@ public class CatTest {
     Feline feline;
 
     @Test
-    public void getSoundCatShouldReturnValue() throws Exception {
+    public void getSoundCatShouldReturnValue() {
         Cat cat = new Cat(feline);
-
-        Mockito.when(feline.getKittens()).thenReturn(1);
-//        Mockito.when(feline.getFamily()).thenReturn("Кошачьи");
-        Mockito.when(feline.eatMeat()).thenReturn(Arrays.asList("Животные", "123"));
 
         String expectedResult = "Мяу";
         String actualResult = cat.getSound();
 
         assertEquals(expectedResult, actualResult);
-
     }
 
     @Test
@@ -42,7 +37,6 @@ public class CatTest {
         List<String> actualResult = cat.getFood();
 
         assertEquals(expectedResult, actualResult);
-
     }
 
 }
