@@ -1,6 +1,9 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -8,31 +11,37 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@RunWith(Parameterized.class)
 public class LionTest {
 
-    @Test
-    public void constructorWithMaleSexLionShouldReturnValue() throws Exception {
-        String sex = "Самец";
+    private final String sex;
+    private final boolean expectedResult;
 
-        Lion lion = new Lion(sex);
+    Feline feline;
 
-        assertTrue(lion.doesHaveMane());
+    public LionTest(String sex, boolean expectedResult) {
+        this.sex = sex;
+        this.expectedResult = expectedResult;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getData() {
+        return new Object[][] {
+                {"Самец", true},
+                {"Самка", false}
+        };
     }
 
     @Test
-    public void constructorWithFemaleSexLionShouldReturnValue() throws Exception {
-        String sex = "Самка";
-
-        Lion lion = new Lion(sex);
-
-        assertFalse(lion.doesHaveMane());
+    public void doesHaveManeTest() throws Exception {
+        Lion lion = new Lion (sex, feline);
+        Assert.assertEquals(expectedResult, lion.doesHaveMane());
     }
 
     @Test
     public void constructorWithInvalidSexLionShouldReturnValue() {
         String sex = "Некорректный пол";
-
-        Exception exception = assertThrows(Exception.class, () -> new Lion(sex));
+        Exception exception = assertThrows(Exception.class, () -> new Lion(sex, feline));
 
         assertEquals("Используйте допустимые значения пола животного - самей или самка", exception.getMessage());
     }
@@ -42,7 +51,7 @@ public class LionTest {
         Feline mockFeline = Mockito.mock(Feline.class);
         when(mockFeline.getKittens()).thenReturn(2);
 
-        Lion lion = new Lion("Самец");
+        Lion lion = new Lion("Самец", feline);
         lion.feline = mockFeline;
 
         int actualKittens = lion.getKittens();
@@ -53,8 +62,7 @@ public class LionTest {
     @Test
     public void doesHaveManeLionShouldReturnValue() throws Exception {
         String sex = "Самец";
-
-        Lion lion = new Lion(sex);
+        Lion lion = new Lion(sex, feline);
 
         assertTrue(lion.doesHaveMane());
     }
@@ -65,7 +73,7 @@ public class LionTest {
         List<String> expectedFood = List.of("Мясо");
         when(mockFeline.getFood("Хищник")).thenReturn(expectedFood);
 
-        Lion lion = new Lion("Самец");
+        Lion lion = new Lion("Самец", feline);
         lion.feline = mockFeline;
 
         List<String> actualFood = lion.getFood();
