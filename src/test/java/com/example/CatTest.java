@@ -20,7 +20,6 @@ public class CatTest {
     @Test
     public void getSoundCatShouldReturnValue() {
         Cat cat = new Cat(feline);
-
         String expectedResult = "Мяу";
         String actualResult = cat.getSound();
 
@@ -30,13 +29,10 @@ public class CatTest {
     @Test
     public void getMeatCatShouldReturnValue() throws Exception {
         Cat cat = new Cat(feline);
-
         Mockito.when(feline.eatMeat()).thenReturn(Arrays.asList("Животные", "123"));
-
         List<String> expectedResult = Arrays.asList("Животные", "123");
         List<String> actualResult = cat.getFood();
 
         assertEquals(expectedResult, actualResult);
     }
-
 }
