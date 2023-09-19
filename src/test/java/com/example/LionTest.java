@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 public class LionTest {
 
     @Test(expected = Exception.class)
-    public void constructorWithInvalidSexLionShouldReturnValue() throws Exception {
+    public void constructorWithInvalidSexLionShouldThrowException() throws Exception {
         String sex = "Некорректный пол";
         new Lion(sex);
     }
@@ -23,7 +23,7 @@ public class LionTest {
         when(mockFeline.getKittens()).thenReturn(2);
 
         Lion lion = new Lion("Самец");
-        lion.setFeline(mockFeline);
+        lion.feline = mockFeline;
 
         int actualKittens = lion.getKittens();
 
@@ -32,8 +32,7 @@ public class LionTest {
 
     @Test
     public void doesHaveManeLionShouldReturnValue() throws Exception {
-        String sex = "Самец";
-        Lion lion = new Lion(sex);
+        Lion lion = new Lion("Самец");
 
         assertTrue(lion.doesHaveMane());
     }
@@ -45,21 +44,10 @@ public class LionTest {
         when(mockFeline.getFood("Хищник")).thenReturn(expectedFood);
 
         Lion lion = new Lion("Самец");
-        lion.setFeline(mockFeline);
+        lion.feline = mockFeline;
 
         List<String> actualFood = lion.getFood();
 
         assertEquals(expectedFood, actualFood);
-    }
-
-    @Test
-    public void getFelineLionShouldReturnValue() throws Exception {
-        Feline mockFeline = Mockito.mock(Feline.class);
-        Lion lion = new Lion("Самец");
-        lion.setFeline(mockFeline);
-
-        Feline actualFeline = lion.getFeline();
-
-        assertEquals(mockFeline, actualFeline);
     }
 }

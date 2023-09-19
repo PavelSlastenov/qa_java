@@ -29,12 +29,4 @@ public class Lion {
     public List<String> getFood() throws Exception {
         return feline.getFood("Хищник");
     }
-
-    public void setFeline(Feline feline) {
-        this.feline = feline;
-    }
-
-    public Feline getFeline() {
-        return feline;
-    }
 }
