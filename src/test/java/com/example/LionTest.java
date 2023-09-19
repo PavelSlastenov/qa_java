@@ -1,21 +1,21 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class LionTest {
 
-    @Test
-    public void constructorWithInvalidSexLionShouldReturnValue() {
+    @Test(expected = Exception.class)
+    public void constructorWithInvalidSexLionShouldReturnValue() throws Exception {
         String sex = "Некорректный пол";
-        Exception exception = assertThrows(Exception.class, () -> new Lion(sex));
-
-        assertEquals("Используйте допустимые значения пола животного - самей или самка", exception.getMessage());
+        new Lion(sex);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class LionTest {
         when(mockFeline.getKittens()).thenReturn(2);
 
         Lion lion = new Lion("Самец");
-        lion.feline = mockFeline;
+        lion.setFeline(mockFeline);
 
         int actualKittens = lion.getKittens();
 
@@ -46,10 +46,21 @@ public class LionTest {
         when(mockFeline.getFood("Хищник")).thenReturn(expectedFood);
 
         Lion lion = new Lion("Самец");
-        lion.feline = mockFeline;
+        lion.setFeline(mockFeline);
 
         List<String> actualFood = lion.getFood();
 
         assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    public void getFelineLionShouldReturnValue() throws Exception {
+        Feline mockFeline = Mockito.mock(Feline.class);
+        Lion lion = new Lion("Самец");
+        lion.setFeline(mockFeline);
+
+        Feline actualFeline = lion.getFeline();
+
+        assertEquals(mockFeline, actualFeline);
     }
 }

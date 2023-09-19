@@ -10,15 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
 
-    @Mock
-    Feline feline;
-
     @Test
     public void getSoundCatShouldReturnValue() {
+        Feline feline = Mockito.mock(Feline.class);
         Cat cat = new Cat(feline);
         String expectedResult = "Мяу";
         String actualResult = cat.getSound();
@@ -28,8 +27,9 @@ public class CatTest {
 
     @Test
     public void getMeatCatShouldReturnValue() throws Exception {
+        Feline feline = Mockito.mock(Feline.class);
         Cat cat = new Cat(feline);
-        Mockito.when(feline.eatMeat()).thenReturn(Arrays.asList("Животные", "123"));
+        when(feline.eatMeat()).thenReturn(Arrays.asList("Животные", "123"));
         List<String> expectedResult = Arrays.asList("Животные", "123");
         List<String> actualResult = cat.getFood();
 

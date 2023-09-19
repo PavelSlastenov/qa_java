@@ -14,14 +14,13 @@ public class FeelineTest {
 
     @Test
     public void getEatMeatFeelineShouldReturnValue() throws Exception {
-        Feline feline = new Feline();
+        Feline feline = Mockito.spy(new Feline());
 
         List<String> expectedFood = List.of("Мясо");
-        Feline mockFeline = Mockito.spy(feline);
-        doReturn(expectedFood).when(mockFeline).getFood("Хищник");
-        List<String> actualFood = mockFeline.eatMeat();
+        doReturn(expectedFood).when(feline).getFood("Хищник");
+        List<String> actualFood = feline.eatMeat();
 
-        verify(mockFeline, times(1)).getFood("Хищник");
+        verify(feline, times(1)).getFood("Хищник");
 
         assertEquals(expectedFood, actualFood);
     }
